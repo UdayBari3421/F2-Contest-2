@@ -40,7 +40,7 @@ let arr = [
     first_name: "Luigi",
     last_name: "Balcers",
     email: "lbalcers3@reverbnation.com",
-    gender: "Agender",
+    gender: "Male",
     img_src: "https://robohash.org/eumaliquamest.png?size=50x50&set=set1",
     class: 8,
     marks: 30,
@@ -212,7 +212,7 @@ let arr = [
     first_name: "Johnna",
     last_name: "Briars",
     email: "jbriarsh@behance.net",
-    gender: "Agender",
+    gender: "Male",
     img_src:
       "https://robohash.org/maximecorruptiaspernatur.png?size=50x50&set=set1",
     class: 9,
@@ -375,7 +375,7 @@ let arr = [
     first_name: "Rozelle",
     last_name: "Meller",
     email: "rmelleru@uol.com.br",
-    gender: "Bigender",
+    gender: "Female",
     img_src:
       "https://robohash.org/quaeratrationemolestias.png?size=50x50&set=set1",
     class: 6,
@@ -609,7 +609,7 @@ let arr = [
     first_name: "Graham",
     last_name: "Lethem",
     email: "glethem1d@hp.com",
-    gender: "Bigender",
+    gender: "Female",
     img_src: "https://robohash.org/estnequeipsa.png?size=50x50&set=set1",
     class: 4,
     marks: 10,
@@ -1237,10 +1237,8 @@ let arr = [
 function populateTable() {
   const tableBody = document.querySelector("#table tbody");
 
-  // Clear any existing table rows
   tableBody.innerHTML = "";
 
-  // Loop through the 'arr' array and create table rows
   arr.forEach((student) => {
     const row = document.createElement("tr");
     row.innerHTML = `
@@ -1300,7 +1298,6 @@ function sortByClass() {
       return classA - classB;
     }
 
-    // Handle alphanumeric class values
     return classA.toString().localeCompare(classB.toString());
   });
 
@@ -1312,7 +1309,6 @@ function sortByGender() {
   populateTable();
 }
 
-// Event listeners for sorting buttons
 document.getElementById("sortAZ").addEventListener("click", sortByNameAZ);
 document.getElementById("sortZA").addEventListener("click", sortByNameZA);
 document.getElementById("sortByMarks").addEventListener("click", sortByMarks);
@@ -1324,7 +1320,6 @@ document.getElementById("sortByGender").addEventListener("click", sortByGender);
 
 function performSearch(query) {
   const results = arr.filter((student) => {
-    // Customize the search criteria here based on your requirements
     const firstNameMatch = student.first_name
       .toLowerCase()
       .includes(query.toLowerCase());
@@ -1347,7 +1342,6 @@ function performSearch(query) {
       .includes(query.toLowerCase());
     const cityMatch = student.city.toLowerCase().includes(query.toLowerCase());
 
-    // Combine all search conditions using logical OR (||)
     return (
       firstNameMatch ||
       lastNameMatch ||
@@ -1356,11 +1350,9 @@ function performSearch(query) {
       classMatch ||
       passingMatch ||
       cityMatch
-      // Add more conditions as needed
     );
   });
 
-  // Call a function to display the search results in the table
   displaySearchResults(results);
 }
 
@@ -1387,7 +1379,6 @@ function displaySearchResults(results) {
   });
 }
 
-// Event listener for the search button
 document.getElementById("searchButton").addEventListener("click", () => {
   const searchInput = document.getElementById("searchInput");
   const query = searchInput.value.trim();
@@ -1395,9 +1386,6 @@ document.getElementById("searchButton").addEventListener("click", () => {
   if (query !== "") {
     performSearch(query);
   } else {
-    // If the search input is empty, display all data
     populateTable();
   }
 });
-
-// ...
