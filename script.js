@@ -1321,3 +1321,83 @@ document
   .addEventListener("click", sortByPassing);
 document.getElementById("sortByClass").addEventListener("click", sortByClass);
 document.getElementById("sortByGender").addEventListener("click", sortByGender);
+
+function performSearch(query) {
+  const results = arr.filter((student) => {
+    // Customize the search criteria here based on your requirements
+    const firstNameMatch = student.first_name
+      .toLowerCase()
+      .includes(query.toLowerCase());
+    const lastNameMatch = student.last_name
+      .toLowerCase()
+      .includes(query.toLowerCase());
+    const emailMatch = student.email
+      .toLowerCase()
+      .includes(query.toLowerCase());
+    const genderMatch = student.gender
+      .toLowerCase()
+      .includes(query.toLowerCase());
+    const classMatch = student.class
+      .toString()
+      .toLowerCase()
+      .includes(query.toLowerCase());
+    const passingMatch = student.passing
+      .toString()
+      .toLowerCase()
+      .includes(query.toLowerCase());
+    const cityMatch = student.city.toLowerCase().includes(query.toLowerCase());
+
+    // Combine all search conditions using logical OR (||)
+    return (
+      firstNameMatch ||
+      lastNameMatch ||
+      emailMatch ||
+      genderMatch ||
+      classMatch ||
+      passingMatch ||
+      cityMatch
+      // Add more conditions as needed
+    );
+  });
+
+  // Call a function to display the search results in the table
+  displaySearchResults(results);
+}
+
+function displaySearchResults(results) {
+  const tableBody = document.querySelector("#table tbody");
+
+  tableBody.innerHTML = "";
+
+  results.forEach((student) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+            <td>${student.id}</td>
+            <td><img src="${student.img_src}" width="10%" alt="${
+      student.name
+    }"> ${student.first_name} ${student.last_name}</td>
+            <td>${student.email}</td>
+            <td>${student.gender}</td>
+            <td>${student.class}</td>
+            <td>${student.marks}</td>
+            <td>${student.passing ? "Yes" : "No"}</td>
+            <td>${student.city}</td>
+        `;
+    tableBody.appendChild(row);
+  });
+}
+
+// Event listener for the search button
+document.getElementById("searchButton").addEventListener("click", () => {
+  const searchInput = document.getElementById("searchInput");
+  const query = searchInput.value.trim();
+
+  if (query !== "") {
+    performSearch(query);
+  } else {
+    // If the search input is empty, display all data
+    populateTable();
+  }
+});
+
+// ...
